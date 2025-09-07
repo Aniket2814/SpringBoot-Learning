@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,5 +61,10 @@ public class PostController {
 	@GetMapping("/{postId}")
 	public PostDTO getPostById(@PathVariable Long postId) {
 		return postService.getPostById(postId);
+	}
+
+	@PutMapping("/{postId}")
+	public PostDTO createNewPost(@RequestBody PostDTO inputPost, @PathVariable Long postId) {
+		return postService.updatePost(inputPost, postId);
 	}
 }

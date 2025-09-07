@@ -1,5 +1,7 @@
 package io.github.aniket2814.cruddemo.entities;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +25,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PostEntity {
+public class PostEntity extends AuditableEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1459230983226638448L;
 
 	/** Unique identifier for each post (Primary Key). */
 	@Id

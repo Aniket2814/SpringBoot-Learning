@@ -77,4 +77,39 @@ public class PostServiceImpl implements PostService {
 				.orElseThrow(() -> new ResourceNotFoundException("Post not exist with ID: " + postId));
 		return modelMapper.map(postEntity, PostDTO.class);
 	}
+
+	/**
+	 * Updates an existing Post with the given ID using the provided PostDTO.
+	 * 
+	 * <p>
+	 * The method fetches the post from the database, maps the new values from the
+	 * DTO to the existing entity, saves the updated entity, and returns the updated
+	 * DTO.
+	 * </p>
+	 *
+	 * @param inputPost the DTO containing updated post data
+	 * @param postId    the ID of the post to be updated
+	 * @return the updated PostDTO
+	 * @throws ResourceNotFoundException if the post with the given ID does not
+	 *                                   exist
+	 */
+	@Override
+	public PostDTO updatePost(PostDTO inputPost, Long postId) {
+		// Fetch the existing PostEntity from DB or throw exception if not found
+		PostEntity olderPost = postRepository.findById(postId)
+				.orElseThrow(() -> new ResourceNotFoundException("Post not exist with ID: " + postId));
+
+		// Ensure DTO has the correct ID to maintain consistency
+		inputPost.setId(postId);
+
+		// Map updated fields from DTO → existing entity
+		modelMapper.map(inputPost, olderPost);
+
+		// Save the updated entity to DB
+		PostEntity savedPostEntity = postRepository.save(olderPost);
+
+		// Convert back to DTO and return to the client
+		return modelMapper.map(savedPostEntity, PostDTO.class);
+	}
+
 }

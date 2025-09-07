@@ -46,4 +46,22 @@ public interface PostService {
 	 * @return the matching {@link PostDTO}
 	 */
 	PostDTO getPostById(Long postId);
+
+	/**
+	 * Updates an existing post with the given ID.
+	 *
+	 * <p>
+	 * This method is responsible for updating the details of a post. It takes the
+	 * updated data as a {@link PostDTO} and applies it to the post identified by
+	 * the provided ID.
+	 * </p>
+	 *
+	 * @param inputPost the DTO containing updated post data
+	 * @param postId    the ID of the post to update
+	 * @return the updated {@link PostDTO}
+	 * @throws io.github.aniket2814.cruddemo.exceptions.ResourceNotFoundException if
+	 *                                                                            given
+	 *                                                                            ID
+	 */
+	PostDTO updatePost(PostDTO inputPost, Long postId);
 }
